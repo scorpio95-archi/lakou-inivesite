@@ -19,9 +19,14 @@
     </svg>
     <span class="logo-text">LAKOU<span>Inivesite</span></span>
   </a>
-  <button class="burger" id="burgerBtn" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="header-actions">
+    <button class="search-btn" id="searchBtn" aria-label="Recherche">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+    </button>
+    <button class="burger" id="burgerBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
 
 <div class="overlay" id="overlay"></div>
@@ -29,7 +34,16 @@
 
   <div class="menu-section">Navigation</div>
   <a href="#top" data-close>Accueil<small>Retour en haut de page</small></a>
-  <a href="#domaines" data-close>Domaines universitaires<small>Architecture, Ingénierie et plus</small></a>
+
+  <button class="menu-accordion-toggle" id="domainesToggle">
+    <span>Domaines universitaires<small>Voir toutes les grandes familles</small></span>
+    <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
+  <div class="menu-submenu" id="domainesSubmenu">
+    <a href="https://lakou-archi-k68x.vercel.app/">Lakou Archi</a>
+    <a href="https://lakou-enjenye26.vercel.app/index.html">Lakou Enjenyè</a>
+    <div class="disabled">Lakou Santé <span class="tag-soon">Bientôt</span></div>
+  </div>
 
   <div class="menu-section">À venir</div>
   <div class="disabled">École professionnelle <span class="tag-soon">Bientôt</span></div>
@@ -46,7 +60,7 @@
 
   <!-- BANNIÈRE : espace réservé pour une image de couverture -->
   <section class="banniere" id="banniere">
-    <img src="https://qptnjgdfobznwmsguvyf.supabase.co/storage/v1/object/public/lakou-inivesite/a92a696d2355a5f50735ad07176bb3b3.jpg" alt="" id="banniereImg"
+    <img src="" alt="" id="banniereImg"
          onerror="this.style.display='none';">
     <div class="banniere-scrim"></div>
     <div class="banniere-content">
@@ -60,59 +74,73 @@
 
   <section class="domaines" id="domaines">
 
-    <!-- ARCHITECTURE -->
-    <div class="card" data-modal="archi" tabindex="0">
+    <!-- LAKOU ARCHI -->
+    <article class="card">
       <div class="card-image">
-        <img src="https://qptnjgdfobznwmsguvyf.supabase.co/storage/v1/object/public/lakou-inivesite/b21d665e73f0543571f9ddf861f440ad.jpg" alt="Architecture" onerror="this.style.display='none'; this.parentElement.querySelector('.fallback-icon').style.display='block';">
+        <img src="" alt="Lakou Archi" onerror="this.style.display='none'; this.parentElement.querySelector('.fallback-icon').style.display='block';">
         <svg class="fallback-icon" style="display:block" viewBox="0 0 24 24" fill="none" stroke="#fff8ec" stroke-width="1.8"><path d="M3 21h18M4 21V10l8-6 8 6v11M9 21v-6h6v6M7 14h.01M17 14h.01M7 10.5h.01M17 10.5h.01"/></svg>
         <span class="badge actif">Actif</span>
       </div>
       <div class="card-body">
-        <div class="card-title">Architecture</div>
+        <div class="card-title">Lakou Archi</div>
         <p class="card-desc">L'art de bâtir l'espace haïtien — du croquis à la façade, du plan à la maquette.</p>
-        <div class="card-tap">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="disciplines-label">Disciplines</div>
+        <ul class="disciplines-list">
+          <li>Architecture</li>
+          <li>Urbanisme</li>
+          <li>Architecture intérieure</li>
+        </ul>
+        <a class="btn-explorer" href="https://lakou-archi-k68x.vercel.app/">
+          Voir davantage
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </div>
-    </div>
+    </article>
 
-    <!-- INGENIERIE -->
-    <div class="card" data-modal="ingenierie" tabindex="0">
+    <!-- LAKOU ENJENYE -->
+    <article class="card">
       <div class="card-image">
-        <img src="https://qptnjgdfobznwmsguvyf.supabase.co/storage/v1/object/public/lakou-inivesite/6732bbb6fe9415f58ae7c1cf74c3ac40%20(1).jpg" alt="Ingénierie" onerror="this.style.display='none'; this.parentElement.querySelector('.fallback-icon').style.display='block';">
+        <img src="" alt="Lakou Enjenyè" onerror="this.style.display='none'; this.parentElement.querySelector('.fallback-icon').style.display='block';">
         <svg class="fallback-icon" style="display:block" viewBox="0 0 24 24" fill="none" stroke="#fff8ec" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
         <span class="badge actif">Actif</span>
       </div>
       <div class="card-body">
-        <div class="card-title">Ingénierie</div>
-        <p class="card-desc">Génie Civil, Électrique, Informatique, Électromécanique — quatre filières, un seul lakou.</p>
-        <div class="card-tap">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="card-title">Lakou Enjenyè</div>
+        <p class="card-desc">Concevoir et résoudre des problèmes techniques concrets, à travers quatre filières.</p>
+        <div class="disciplines-label">Disciplines</div>
+        <ul class="disciplines-list">
+          <li>Génie civil</li>
+          <li>Génie électrique</li>
+          <li>Génie informatique</li>
+          <li>Électromécanique</li>
+        </ul>
+        <a class="btn-explorer" href="https://lakou-enjenye26.vercel.app/index.html">
+          Voir davantage
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </div>
-    </div>
+    </article>
 
-    <!-- MEDECINE (bientôt) -->
-    <div class="card soon" data-modal="medecine" tabindex="0">
+    <!-- LAKOU SANTE (bientôt) -->
+    <article class="card soon">
       <div class="card-image">
         <svg class="fallback-icon" style="display:block" viewBox="0 0 24 24" fill="none" stroke="#fff8ec" stroke-width="1.8"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.29 1.51 4.04 3 5.5l7 7 7-7z"/></svg>
         <span class="badge bientot">Bientôt</span>
       </div>
       <div class="card-body">
-        <div class="card-title">Médecine</div>
-        <p class="card-desc">Ce domaine est en construction.</p>
-        <div class="card-tap">En savoir plus <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="card-title">Lakou Santé</div>
+        <p class="card-desc">Les métiers du soin et de la santé publique en Haïti.</p>
+        <div class="disciplines-label">Disciplines</div>
+        <ul class="disciplines-list">
+          <li>Médecine</li>
+          <li>Pharmacie</li>
+          <li>Sciences infirmières</li>
+          <li>Odontologie</li>
+          <li>Santé publique</li>
+        </ul>
+        <span class="btn-disabled">Bientôt disponible</span>
       </div>
-    </div>
-
-    <!-- DROIT (bientôt) -->
-    <div class="card soon" data-modal="droit" tabindex="0">
-      <div class="card-image">
-        <svg class="fallback-icon" style="display:block" viewBox="0 0 24 24" fill="none" stroke="#fff8ec" stroke-width="1.8"><path d="M12 3v18M5 8l-4 6a4 4 0 008 0l-4-6zM19 8l-4 6a4 4 0 008 0l-4-6zM5 8h14M8 21h8"/></svg>
-        <span class="badge bientot">Bientôt</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Droit</div>
-        <p class="card-desc">Ce domaine est en construction.</p>
-        <div class="card-tap">En savoir plus <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </div>
-    </div>
+    </article>
 
   </section>
 
@@ -128,7 +156,7 @@
   <section class="about" id="apropos">
     <h2>Une seule cour, tous les chemins</h2>
     <p>En Haïti, un lakou est plus qu'une cour de maison : c'est une communauté, un centre de vie où chaque famille a sa propre maison tout en partageant la même terre. Lakou Inivesite reprend cette idée et l'applique à l'enseignement supérieur.</p>
-    <p>Chaque domaine — Architecture, Ingénierie, Médecine, Droit — a sa propre archive, sa propre plateforme. Mais tous se rassemblent sous un même nom : une seule maison où les étudiants haïtiens peuvent retrouver des travaux, des projets et des ressources venus du même pays.</p>
+    <p>Chaque grande famille — Lakou Archi, Lakou Enjenyè, Lakou Santé — a sa propre archive, sa propre plateforme, avec ses disciplines et leurs fiches détaillées. Mais toutes se rassemblent sous un même nom : une seule maison où les étudiants haïtiens peuvent retrouver des travaux, des projets et des ressources venus du même pays.</p>
   </section>
 
   <div class="section-label" style="margin-top:44px;"><span>Le fondateur</span><div class="line"></div></div>
@@ -155,12 +183,15 @@
   </footer>
 </main>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <button class="modal-close" id="modalClose">×</button>
-    <div class="modal-handle"></div>
-    <div id="modalContent"></div>
+<!-- RECHERCHE -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-panel">
+    <div class="search-input-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Chercher un domaine, une discipline..." autocomplete="off">
+      <button id="searchClose" aria-label="Fermer">×</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
   </div>
 </div>
 
