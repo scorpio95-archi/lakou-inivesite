@@ -1,34 +1,54 @@
 /* ============================================================
    LAKOU — shared/nav.js
-   Bandeau de liaison entre les sites du réseau Lakou.
+   Fil d'ariane de liaison entre les sites du réseau Lakou.
 
    UTILISATION :
    Colle ce fichier dans un dossier /shared/ à la racine de
-   CHACUN de tes 3 repos (lakou-inivesite, lakou-archi, lakou-enjenye),
-   puis ajoute cette ligne juste après <body> dans chaque index.html :
+   CHAQUE repo du réseau, puis ajoute cette ligne juste après
+   <body> dans chaque index.html :
 
-     <script src="shared/nav.js" data-site="inivesite" defer></script>
+     <script src="shared/nav.js" data-site="archi" defer></script>
 
-   Remplace data-site par : "inivesite", "archi" ou "ingenierie"
-   selon le site où tu l'installes. Le bandeau s'adapte tout seul
-   et ne montre jamais un lien vers la page où l'on se trouve déjà.
+   Remplace data-site par la clé correspondant au site :
+     "inivesite"    → Lakou Inivesite (la structure mère)
+     "archi"        → Lakou Archi (page mère de la famille Archi)
+     "architecture" → Architecture (discipline, sous Lakou Archi)
+     "urbanisme"    → Urbanisme (discipline, sous Lakou Archi)
+     "ingenierie"   → Lakou Enjenyè
+
+   Le bandeau affiche automatiquement le fil complet (ex :
+   Lakou Inivesite › Lakou Archi › Urbanisme) et ne transforme
+   jamais la page courante en lien.
+
+   Pour ajouter une nouvelle discipline plus tard, ajoute une
+   entrée à SITES avec son "parent", rien d'autre à changer.
    ============================================================ */
 
 (function () {
   const SITES = {
-    inivesite:  { label: "Lakou Inivesite", url: "https://lakou-inivesite.vercel.app/" },
-    archi:      { label: "Architecture",     url: "https://lakou-archi-k68x.vercel.app/" },
-    ingenierie: { label: "Ingénierie",       url: "https://lakou-enjenye26.vercel.app/index.html" }
+    inivesite:    { label: "Lakou Inivesite", url: "https://lakou-inivesite.vercel.app/", parent: null },
+    archi:        { label: "Lakou Archi",     url: "https://lakou-archi-rho.vercel.app/", parent: "inivesite" },
+    architecture: { label: "Architecture",    url: "https://lakou-archi-k68x.vercel.app/", parent: "archi" },
+    urbanisme:    { label: "Urbanisme",       url: "https://urbanisme-one.vercel.app/", parent: "archi" },
+    ingenierie:   { label: "Lakou Enjenyè",   url: "https://lakou-enjenye26.vercel.app/index.html", parent: "inivesite" }
   };
 
   const script = document.currentScript;
   const current = (script && script.dataset.site) || "inivesite";
 
+  // Reconstitue le chemin depuis la racine jusqu'au site courant
+  const chain = [];
+  let node = current;
+  while (node && SITES[node]) {
+    chain.unshift(node);
+    node = SITES[node].parent;
+  }
+
   const style = document.createElement('style');
   style.textContent = `
     .lakou-network-bar{
       display:flex; align-items:center; gap:6px; flex-wrap:wrap;
-      font-family:'Karla', sans-serif; font-size:0.72rem;
+      font-family:'Karla', 'Inter', sans-serif; font-size:0.72rem;
       background:#211712; color:#f2e4c8;
       padding:7px 16px; letter-spacing:0.02em;
     }
@@ -42,16 +62,15 @@
   const bar = document.createElement('div');
   bar.className = 'lakou-network-bar';
 
-  const parts = [];
-  parts.push(`<a href="${SITES.inivesite.url}">🏠 Lakou Inivesite</a>`);
-  Object.keys(SITES).forEach((key) => {
-    if (key === 'inivesite') return;
+  const parts = chain.map((key, i) => {
     const site = SITES[key];
-    if (key === current) {
-      parts.push(`<span class="lakou-sep">›</span><span class="lakou-current">${site.label}</span>`);
-    } else {
-      parts.push(`<span class="lakou-sep">›</span><a href="${site.url}">${site.label}</a>`);
-    }
+    const icon = i === 0 ? '🏠 ' : '';
+    const label = icon + site.label;
+    const isLast = i === chain.length - 1;
+    const link = isLast
+      ? `<span class="lakou-current">${label}</span>`
+      : `<a href="${site.url}">${label}</a>`;
+    return i === 0 ? link : `<span class="lakou-sep">›</span>${link}`;
   });
 
   bar.innerHTML = parts.join(' ');
