@@ -43,7 +43,9 @@ h1,h2,h3,.display{ font-family:'Fraunces', serif; font-weight:600; letter-spacin
 header{
   position:sticky; top:0; z-index:100;
   display:flex; align-items:center; justify-content:space-between;
-  padding:12px 18px;
+  padding: 12px 18px;
+  padding-top: calc(12px + env(safe-area-inset-top));
+
   background:rgba(242,228,200,0.92);
   backdrop-filter:blur(6px);
   border-bottom:2px solid var(--tè);
@@ -52,6 +54,8 @@ header{
 .logo-link{ display:flex; align-items:center; gap:10px; text-decoration:none; }
 .logo-mark{ width:34px; height:34px; flex-shrink:0; }
 .logo-text{
+  line-height: 1.2;
+
   font-family:'Fraunces', serif; font-weight:700; font-size:1.12rem;
   color:var(--tè-fonse); letter-spacing:-0.01em; line-height:1;
 }
@@ -96,8 +100,12 @@ header{
 .overlay.open{ opacity:1; pointer-events:auto; }
 /* ---------- BANNIÈRE ---------- */
 .banniere{
-  position:relative; z-index:1;
-  width:100%; aspect-ratio:16/7; max-height:340px;
+  aspect-ratio: unset;
+  max-height: none;
+  min-height: 420px;
+  padding: 90px 20px 50px;
+  overflow: visible;
+
   background:
     linear-gradient(160deg, rgba(178,58,30,0.92), rgba(27,75,67,0.88)),
     repeating-linear-gradient(45deg, rgba(255,248,236,0.05) 0 3px, transparent 3px 22px);
@@ -112,7 +120,7 @@ header{
 }
 .banniere-content{ position:relative; z-index:2; text-align:center; padding:0 24px; }
 .banniere h1{
-  font-size:clamp(2.3rem, 9vw, 3.6rem); color:var(--papye); line-height:0.95;
+  font-size:clamp(2.3rem, 9vw, 3.6rem); color:var(--papye); line-height:1.05;
   text-shadow:0 3px 0 rgba(33,23,18,0.4);
 }
 .banniere p{ margin-top:14px; font-size:0.95rem; color:rgba(255,248,236,0.88); max-width:420px; margin-left:auto; margin-right:auto; line-height:1.55; }
