@@ -29,7 +29,7 @@ document.querySelectorAll('[data-close]').forEach(a => a.addEventListener('click
 // ============================================================
 const domaines = {
   archi: {
-    image: "",
+    image: "https://qptnjgdfobznwmsguvyf.supabase.co/storage/v1/object/public/lakou-inivesite/b21d665e73f0543571f9ddf861f440ad.jpg",
     icon: `<svg viewBox="0 0 24 24" fill="none" stroke="#fff8ec" stroke-width="1.8"><path d="M3 21h18M4 21V10l8-6 8 6v11M9 21v-6h6v6M7 14h.01M17 14h.01M7 10.5h.01M17 10.5h.01"/></svg>`,
     badge: 'actif', badgeText: 'Actif',
     title: 'Architecture',
