@@ -43,10 +43,21 @@
     <a href="https://lakou-archi-rho.vercel.app/">Lakou Archi</a>
     <a href="https://lakou-enjenye26.vercel.app/index.html">Lakou Enjenyè</a>
     <div class="disabled">Lakou Santé <span class="tag-soon">Bientôt</span></div>
+    <a href="universites.html">Voir tous les domaines →</a>
+  </div>
+
+  <button class="menu-accordion-toggle" id="ecoleProToggle">
+    <span>Écoles professionnelles<small>Cuisine, beauté, bâtiment…</small></span>
+    <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
+  <div class="menu-submenu" id="ecoleProSubmenu">
+    <div class="disabled">Lakou Kizin <span class="tag-soon">Bientôt</span></div>
+    <div class="disabled">Lakou Bote <span class="tag-soon">Bientôt</span></div>
+    <div class="disabled">Lakou Bâtiman <span class="tag-soon">Bientôt</span></div>
+    <a href="ecoles-professionnelles.html">Voir toutes les écoles →</a>
   </div>
 
   <div class="menu-section">À venir</div>
-  <div class="disabled">École professionnelle <span class="tag-soon">Bientôt</span></div>
   <div class="disabled">Statistiques du réseau <span class="tag-soon">Bientôt</span></div>
 
   <div class="menu-section">À propos</div>
@@ -70,7 +81,7 @@
     <span class="banniere-note">Bannière personnalisable</span>
   </section>
 
-  <div class="section-label" style="margin-top:38px;"><span>Les domaines</span><div class="line"></div></div>
+  <div class="section-label" style="margin-top:38px;"><span>Domaines universitaires</span><div class="line"></div></div>
 
   <section class="domaines" id="domaines">
 
@@ -144,14 +155,87 @@
 
   </section>
 
-  <div class="ecole-pro-teaser">
-    <div class="ecole-pro-box">
-      <h3>École professionnelle — bientôt dans le Lakou</h3>
-      <p>Une section dédiée aux formations techniques (cuisine, cosmétologie, carrelage, et plus) arrivera au bas de cette page.</p>
-    </div>
+  <a class="btn-voir-tout" href="universites.html">
+    Voir davantage — tous les domaines universitaires
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+
+  <div class="section-label" style="margin-top:52px;"><span>Écoles professionnelles</span><div class="line"></div></div>
+  <div class="ecoles-pro-intro">
+    <p>À côté du cursus universitaire, le Lakou accueille aussi les métiers techniques — cuisine, beauté, bâtiment, et plus à venir.</p>
   </div>
 
-  <div class="section-label" style="margin-top:44px;"><span>Le concept</span><div class="line"></div></div>
+  <section class="domaines" id="ecoles-pro">
+
+    <!-- LAKOU KIZIN (CUISINE) -->
+    <article class="card soon">
+      <div class="card-image">
+        <svg class="fallback-icon" style="display:block" viewBox="0 0 24 24" fill="none" stroke="#fff8ec" stroke-width="1.8"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><path d="M6 1v3M10 1v3M14 1v3"/></svg>
+        <span class="badge bientot">Bientôt</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Lakou Kizin</div>
+        <p class="card-desc">Les métiers de la cuisine et de la table, du geste artisanal au service professionnel.</p>
+        <div class="disciplines-label">Filières</div>
+        <ul class="disciplines-list">
+          <li>Cuisine</li>
+          <li>Pâtisserie</li>
+          <li>Boulangerie</li>
+          <li>Art de la table</li>
+        </ul>
+        <span class="btn-disabled">Bientôt disponible</span>
+      </div>
+    </article>
+
+    <!-- LAKOU BOTE (COSMETOLOGIE) -->
+    <article class="card soon">
+      <div class="card-image">
+        <svg class="fallback-icon" style="display:block" viewBox="0 0 24 24" fill="none" stroke="#fff8ec" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <span class="badge bientot">Bientôt</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Lakou Bote</div>
+        <p class="card-desc">Les métiers de la beauté et du soin personnel.</p>
+        <div class="disciplines-label">Filières</div>
+        <ul class="disciplines-list">
+          <li>Coiffure</li>
+          <li>Esthétique</li>
+          <li>Soins de la peau</li>
+          <li>Onglerie</li>
+        </ul>
+        <span class="btn-disabled">Bientôt disponible</span>
+      </div>
+    </article>
+
+    <!-- LAKOU BATIMAN (BATIMENT) -->
+    <article class="card soon">
+      <div class="card-image">
+        <svg class="fallback-icon" style="display:block" viewBox="0 0 24 24" fill="none" stroke="#fff8ec" stroke-width="1.8"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg>
+        <span class="badge bientot">Bientôt</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Lakou Bâtiman</div>
+        <p class="card-desc">Les métiers techniques du bâtiment et de la construction.</p>
+        <div class="disciplines-label">Filières</div>
+        <ul class="disciplines-list">
+          <li>Carrelage</li>
+          <li>Plomberie</li>
+          <li>Électricité</li>
+          <li>Maçonnerie</li>
+          <li>Menuiserie</li>
+        </ul>
+        <span class="btn-disabled">Bientôt disponible</span>
+      </div>
+    </article>
+
+  </section>
+
+  <a class="btn-voir-tout" href="ecoles-professionnelles.html">
+    Voir davantage — toutes les écoles professionnelles
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+
+  <div class="section-label" style="margin-top:52px;"><span>Le concept</span><div class="line"></div></div>
 
   <section class="about" id="apropos">
     <h2>Une seule cour, tous les chemins</h2>
