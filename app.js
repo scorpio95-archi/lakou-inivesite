@@ -1,103 +1,128 @@
 /* ============================================================
-   LAKOU INIVESITE — app.js
+   LAKOU INIVESITE — app.js (page mère)
+   Gère : burger/menu latéral, accordéons du menu, recherche,
+   et l'ouverture des cartes actives au clic.
    ============================================================ */
 
-// ---------- MENU HAMBURGER ----------
-const burgerBtn = document.getElementById('burgerBtn');
-const menuPanel = document.getElementById('menuPanel');
-const overlay = document.getElementById('overlay');
+document.addEventListener('DOMContentLoaded', () => {
 
-function toggleMenu(force){
-  const open = force !== undefined ? force : !menuPanel.classList.contains('open');
-  menuPanel.classList.toggle('open', open);
-  overlay.classList.toggle('open', open);
-  burgerBtn.classList.toggle('open', open);
-}
-burgerBtn.addEventListener('click', () => toggleMenu());
-overlay.addEventListener('click', () => toggleMenu(false));
-document.querySelectorAll('[data-close]').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+  /* ---------- BURGER / MENU LATÉRAL ---------- */
+  const burgerBtn = document.getElementById('burgerBtn');
+  const menuPanel = document.getElementById('menuPanel');
+  const overlay = document.getElementById('overlay');
 
-// ---------- ACCORDÉON "DOMAINES UNIVERSITAIRES" DANS LE MENU ----------
-const domainesToggle = document.getElementById('domainesToggle');
-const domainesSubmenu = document.getElementById('domainesSubmenu');
-domainesToggle.addEventListener('click', () => {
-  domainesToggle.classList.toggle('open');
-  domainesSubmenu.classList.toggle('open');
+  function closeMenu(){
+    burgerBtn.classList.remove('open');
+    menuPanel.classList.remove('open');
+    overlay.classList.remove('open');
+  }
+  function toggleMenu(){
+    const isOpen = menuPanel.classList.toggle('open');
+    burgerBtn.classList.toggle('open', isOpen);
+    overlay.classList.toggle('open', isOpen);
+  }
+  if (burgerBtn) burgerBtn.addEventListener('click', toggleMenu);
+  if (overlay) overlay.addEventListener('click', closeMenu);
+  document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeMenu));
+
+  /* ---------- ACCORDÉONS DU MENU ----------
+     Fonctionne pour n'importe quel .menu-accordion-toggle suivi
+     directement d'un .menu-submenu — donc valable pour "Domaines
+     universitaires", "Écoles professionnelles", et tout futur ajout. */
+  document.querySelectorAll('.menu-accordion-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('open');
+      const submenu = btn.nextElementSibling;
+      if (submenu && submenu.classList.contains('menu-submenu')) {
+        submenu.classList.toggle('open');
+      }
+    });
+  });
+
+  /* ---------- RECHERCHE ---------- */
+  const searchBtn = document.getElementById('searchBtn');
+  const searchOverlay = document.getElementById('searchOverlay');
+  const searchClose = document.getElementById('searchClose');
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+
+  function openSearch(){
+    if (!searchOverlay) return;
+    searchOverlay.classList.add('open');
+    setTimeout(() => searchInput && searchInput.focus(), 200);
+  }
+  function closeSearch(){
+    if (searchOverlay) searchOverlay.classList.remove('open');
+  }
+  if (searchBtn) searchBtn.addEventListener('click', openSearch);
+  if (searchClose) searchClose.addEventListener('click', closeSearch);
+
+  // Construit l'index de recherche à partir des cartes présentes sur la page
+  // (fonctionne aussi bien pour les cartes "Domaines" que "Écoles pro")
+  function buildSearchIndex(){
+    const items = [];
+    document.querySelectorAll('.card').forEach(card => {
+      const titleEl = card.querySelector('.card-title');
+      const descEl = card.querySelector('.card-desc');
+      const link = card.querySelector('.btn-explorer');
+      const title = titleEl ? titleEl.textContent.trim() : '';
+      const desc = descEl ? descEl.textContent.trim() : '';
+      const href = link ? link.getAttribute('href') : null;
+
+      if (title) items.push({ title, desc, href });
+
+      card.querySelectorAll('.disciplines-list li').forEach(li => {
+        items.push({
+          title: li.textContent.trim(),
+          desc: `Discipline — ${title}`,
+          href: href
+        });
+      });
+    });
+    return items;
+  }
+
+  const searchIndex = buildSearchIndex();
+
+  function escapeHtml(str){
+    return str.replace(/[&<>"']/g, s => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[s]));
+  }
+
+  function renderResults(query){
+    if (!searchResults) return;
+    const q = query.trim().toLowerCase();
+    if (!q) {
+      searchResults.innerHTML = '';
+      return;
+    }
+    const matches = searchIndex.filter(item =>
+      item.title.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q)
+    );
+    if (matches.length === 0) {
+      searchResults.innerHTML = `<div class="search-empty">Aucun résultat pour « ${escapeHtml(query)} ».</div>`;
+      return;
+    }
+    searchResults.innerHTML = matches.map(item => {
+      const tagOpen = item.href ? `<a class="search-result-item" href="${item.href}">` : `<div class="search-result-item">`;
+      const tagClose = item.href ? '</a>' : '</div>';
+      return `${tagOpen}<div class="srt">${escapeHtml(item.title)}</div><div class="srd">${escapeHtml(item.desc)}</div>${tagClose}`;
+    }).join('');
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => renderResults(e.target.value));
+  }
+
+  /* ---------- CLIC SUR UNE CARTE ACTIVE → LIEN DIRECT ---------- */
+  document.querySelectorAll('.card:not(.soon)').forEach(card => {
+    const link = card.querySelector('.btn-explorer');
+    if (!link) return;
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return; // laisse le lien natif agir normalement
+      window.location.href = link.getAttribute('href');
+    });
+  });
+
 });
-
-// ============================================================
-// INDEX DE RECHERCHE
-// Ajoute une entrée ici à chaque nouvelle famille Lakou créée.
-// url:null => pas encore de page, affiché comme "Bientôt".
-// ============================================================
-const searchIndex = [
-  {
-    title: "Lakou Archi",
-    desc: "Architecture, Urbanisme, Architecture intérieure",
-    url: "https://lakou-archi-k68x.vercel.app/",
-    keywords: ["architecture", "urbanisme", "architecture intérieure", "archi", "bâtiment", "construction", "plan", "maquette"]
-  },
-  {
-    title: "Lakou Enjenyè",
-    desc: "Génie civil, Génie électrique, Génie informatique, Électromécanique",
-    url: "https://lakou-enjenye26.vercel.app/index.html",
-    keywords: ["ingénierie", "génie", "génie civil", "génie électrique", "génie informatique", "électromécanique", "enjenye"]
-  },
-  {
-    title: "Lakou Santé",
-    desc: "Médecine, Pharmacie, Sciences infirmières, Odontologie, Santé publique",
-    url: null,
-    keywords: ["santé", "médecine", "pharmacie", "infirmière", "infirmiere", "odontologie", "dentaire", "sante publique"]
-  }
-];
-
-// ---------- RECHERCHE ----------
-const searchBtn = document.getElementById('searchBtn');
-const searchOverlay = document.getElementById('searchOverlay');
-const searchInput = document.getElementById('searchInput');
-const searchResults = document.getElementById('searchResults');
-const searchClose = document.getElementById('searchClose');
-
-function openSearch(){
-  searchOverlay.classList.add('open');
-  searchInput.value = '';
-  renderResults('');
-  setTimeout(() => searchInput.focus(), 100);
-}
-function closeSearch(){ searchOverlay.classList.remove('open'); }
-
-searchBtn.addEventListener('click', openSearch);
-searchClose.addEventListener('click', closeSearch);
-searchOverlay.addEventListener('click', (e) => { if (e.target === searchOverlay) closeSearch(); });
-
-function renderResults(query){
-  const q = query.trim().toLowerCase();
-
-  const matches = q === ''
-    ? searchIndex
-    : searchIndex.filter(item =>
-        item.title.toLowerCase().includes(q) ||
-        item.desc.toLowerCase().includes(q) ||
-        item.keywords.some(k => k.includes(q))
-      );
-
-  if (matches.length === 0){
-    searchResults.innerHTML = `<div class="search-empty">Aucun résultat pour « ${query} ». Essaie un autre mot-clé.</div>`;
-    return;
-  }
-
-  searchResults.innerHTML = matches.map(item => {
-    const label = item.url ? '' : ' — Bientôt';
-    return item.url
-      ? `<a class="search-result-item" href="${item.url}">
-           <div class="srt">${item.title}</div>
-           <div class="srd">${item.desc}</div>
-         </a>`
-      : `<div class="search-result-item" style="opacity:0.6;">
-           <div class="srt">${item.title}${label}</div>
-           <div class="srd">${item.desc}</div>
-         </div>`;
-  }).join('');
-}
-
-searchInput.addEventListener('input', (e) => renderResults(e.target.value));
