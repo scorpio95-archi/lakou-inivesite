@@ -165,7 +165,6 @@ header{
     10px 16px 26px rgba(33,23,18,0.4),
     0 0 0 6px var(--papye);
 }
-
 .card::before{ /* ruban de "washi tape" */
   content:"";
   position:absolute; top:-14px; left:50%; transform:translateX(-50%) rotate(-3deg);
@@ -272,7 +271,6 @@ footer strong{ color:var(--tè-fonse); font-family:'Fraunces',serif; }
 }
 .duree-box .label{ font-weight:700; color:var(--tè-fonse); text-transform:uppercase; font-size:0.68rem; letter-spacing:0.06em; }
 .duree-box .valeur{ font-weight:700; color:var(--enk); }
-
 .btn-explorer{
   display:flex; align-items:center; justify-content:center; gap:8px;
   width:100%; margin-top:26px; padding:16px; border:none; border-radius:6px;
@@ -401,3 +399,68 @@ footer strong{ color:var(--tè-fonse); font-family:'Fraunces',serif; }
 .search-result-item .srt{ font-weight:700; color:var(--tè-fonse); font-family:'Fraunces',serif; }
 .search-result-item .srd{ font-size:0.82rem; color:var(--enk-doux); margin-top:2px; }
 .search-empty{ font-size:0.85rem; color:var(--enk-doux); padding:10px; text-align:center; }
+
+/* ---------- BOUTON "VOIR DAVANTAGE" (collection complète) ---------- */
+.btn-voir-tout{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  max-width:520px; margin:24px auto 0; padding:16px; border-radius:6px;
+  background:var(--enk); color:var(--kreem); text-decoration:none;
+  font-family:'Fraunces',serif; font-weight:600; font-size:1rem;
+  border:2px solid var(--enk); box-shadow:0 5px 0 var(--tè-fonse);
+  transition:transform .15s;
+}
+.btn-voir-tout:active{ transform:translateY(4px); box-shadow:0 1px 0 var(--tè-fonse); }
+.btn-voir-tout svg{ width:18px; height:18px; flex-shrink:0; }
+
+/* ---------- ÉCOLES PROFESSIONNELLES (accueil) ---------- */
+.ecoles-pro-intro{ max-width:520px; margin:0 auto; padding:0 24px 6px; text-align:center; }
+.ecoles-pro-intro p{ font-size:0.86rem; color:var(--enk-doux); line-height:1.55; }
+
+/* ---------- PAGES D'EXTENSION (toutes-les-cartes) ---------- */
+.ext-header{
+  position:relative; z-index:1; max-width:960px; margin:0 auto;
+  padding:26px 22px 10px; text-align:center;
+}
+.ext-header h1{ color:var(--tè-fonse); font-size:1.7rem; line-height:1.15; }
+.ext-header p{ margin-top:10px; font-size:0.9rem; color:var(--enk-doux); max-width:480px; margin-left:auto; margin-right:auto; line-height:1.55; }
+.retour-lien{
+  display:inline-flex; align-items:center; gap:6px; margin:14px 22px 0;
+  font-size:0.85rem; color:var(--tè-fonse); text-decoration:none; font-weight:700;
+}
+.retour-lien svg{ width:16px; height:16px; }
+
+.ext-grid{
+  position:relative; z-index:1;
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+  gap:20px; max-width:980px; margin:0 auto; padding:24px 20px 60px;
+}
+.carte-mere{
+  background:var(--papye); border:2px solid var(--enk); border-radius:8px;
+  padding:18px; box-shadow:6px 8px 0 rgba(33,23,18,0.15);
+}
+.carte-mere.soon{ opacity:0.8; }
+.cm-top{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.cm-icon{ font-size:1.5rem; line-height:1; }
+.carte-mere h3{ color:var(--tè-fonse); font-size:1.1rem; margin:10px 0 12px; line-height:1.2; }
+.carte-mere.soon h3{ color:var(--enk-doux); }
+.carte-mere ul{ list-style:none; }
+.carte-mere ul li{
+  font-size:0.85rem; color:var(--enk-doux); line-height:1.5;
+  padding-left:14px; position:relative; margin-bottom:6px;
+}
+.carte-mere ul li::before{
+  content:""; position:absolute; left:0; top:8px;
+  width:5px; height:5px; border-radius:50%; background:var(--lagon);
+}
+.carte-mere.soon ul li::before{ background:var(--enk-doux); }
+.cm-status{
+  display:inline-block; margin-top:2px; font-size:0.62rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.06em; padding:3px 9px; border-radius:20px;
+  flex-shrink:0;
+}
+.cm-status.actif{ background:var(--lagon); color:var(--papye); }
+.cm-status.bientot{ background:var(--lò); color:var(--enk); }
+.cm-link{
+  display:block; margin-top:14px; font-size:0.84rem; font-weight:700;
+  color:var(--tè); text-decoration:none;
+}
